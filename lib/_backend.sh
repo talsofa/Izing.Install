@@ -19,14 +19,14 @@ backend_db_create() {
   docker run --name postgresql \
                 -e POSTGRES_USER=izing \
                 -e POSTGRES_PASSWORD=${pg_pass} \
-				-e TZ="America/Sao_Paulo" \
+				-e TZ="America/Cuiaba" \
                 -p 5432:5432 \
                 --restart=always \
                 -v /data:/var/lib/postgresql/data \
                 -d postgres
 
   docker run --name redis-izing \
-                -e TZ="America/Sao_Paulo" \
+                -e TZ="America/Cuiaba" \
                 -p 6379:6379 \
                 --restart=always \
                 -d redis:latest redis-server \
@@ -109,7 +109,7 @@ PORT=${backend_porta}
 # conexão com o banco de dados
 DB_DIALECT=postgres
 DB_PORT=${porta_postgre_intancia}
-DB_TIMEZONE=-03:00
+DB_TIMEZONE=-04:00
 POSTGRES_HOST=localhost
 POSTGRES_USER=izing
 POSTGRES_PASSWORD=${pg_pass}
@@ -230,7 +230,7 @@ whatsappweb_update() {
   cd /home/deploy/${nome_instancia}/backend
   pm2 stop all
   npm r whatsapp-web.js
-  npm i whatsapp-web.js@^1.23.1-alpha.6
+  npm i whatsapp-web.js@^1.24.0-alpha.6
   pm2 restart all
 EOF
 
